@@ -65,7 +65,6 @@ function generateGameState(): GameState[] {
 }
 
 function checkMove(empty: GameState, clicked: GameState): Boolean {
-  return true;
   return (
     (Math.abs(empty.positionID - clicked.positionID) === 1 &&
       empty.y === clicked.y) ||
