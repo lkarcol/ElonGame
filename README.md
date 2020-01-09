@@ -1,2 +1,0 @@
-# ElonGame
-Created with CodeSandbox
