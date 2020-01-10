@@ -7,6 +7,9 @@ import { Game } from "./game";
 const StyledApp = styled.div`
   width: 100%;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: url("https://bitport.hu/images/content/201808/focus/elon_musk.jpg");
 `;
 

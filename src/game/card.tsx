@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import Areas from "./areas";
+
 type Position = {
   x: number;
   y: number;
@@ -16,6 +17,7 @@ interface Props {
   cardSize: CardSize;
   onCardClickCb: Function;
   position: Position;
+  game: string;
 }
 
 const imageAreas = Areas();
@@ -30,6 +32,7 @@ const StyledCard = styled.div<{
   x: number;
   y: number;
   cardID: number;
+  game: string;
 }>`
   position: absolute;
   width: ${props => props.cardSize.w + "px"};
@@ -40,15 +43,16 @@ const StyledCard = styled.div<{
   font-size: 30px;
   text-align: center;
   cursor: pointer;
-  background: url(${"https://media.giphy.com/media/5eFRL3jPLgbNj6iwPx/giphy.gif"})
-    ${props => getArea(props)} / 807px 570px;
+  background: url(${props => props.game}) ${props => getArea(props)} / 807px
+    570px;
 `;
 
-function Card<Props>({ cardID, cardSize, onCardClickCb, position }) {
+function Card<Props>({ cardID, cardSize, onCardClickCb, position, game }) {
   const onCardClick = () => onCardClickCb(cardID);
   return (
     <StyledCard
       cardSize={cardSize}
+      game={game}
       cardID={cardID}
       {...position}
       onClick={onCardClick}

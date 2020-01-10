@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "./card";
+import GameList from "./list";
 import { BOARD_WIDTH, BOARD_HEIGHT, MAX_CARDS, CARD_SIZE } from "./constants";
 
 type GameState = {
@@ -10,12 +11,16 @@ type GameState = {
   y: number;
 };
 
+const GameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const StyledBoard = styled.div`
   position: relative;
   width: ${BOARD_WIDTH}px;
   height: ${BOARD_HEIGHT}px;
   border: 1px solid red;
-  margin: auto;
 `;
 
 const SuccesImage = styled.img`
@@ -24,12 +29,13 @@ const SuccesImage = styled.img`
   height: 100vh;
 `;
 
-function renderCards(state: GameState[], OnCardClickCb) {
+function renderCards(state: GameState[], OnCardClickCb, game: string) {
   return state.map(
     (boardState, k) =>
       boardState.cardID && (
         <Card
           key={k}
+          game={game}
           cardSize={CARD_SIZE}
           onCardClickCb={OnCardClickCb}
           cardID={boardState.cardID}
@@ -79,6 +85,7 @@ function checkResult(state: GameState[]): Boolean {
 }
 
 function Game() {
+  const [game, setGame] = useState<string>();
   const [gameState, setGameState] = useState<GameState[]>(generateGameState());
   const [succes, setSucces] = useState<boolean>(false);
 
@@ -87,6 +94,10 @@ function Game() {
       setSucces(!succes);
     }
   }, [gameState]);
+
+  const onGameClickCb = (game: string) => {
+    setGame(game);
+  };
 
   const onCardClickCb = (cardID: number) => {
     const state = [...gameState];
@@ -107,7 +118,10 @@ function Game() {
       }
     />
   ) : (
-    <StyledBoard>{renderCards(gameState, onCardClickCb)}</StyledBoard>
+    <GameContainer>
+      <GameList onGameClickCb={onGameClickCb} />
+      <StyledBoard>{renderCards(gameState, onCardClickCb, game)}</StyledBoard>
+    </GameContainer>
   );
 }
 
