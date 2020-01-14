@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Card from "./card";
 import GameList from "./list";
+import Input from "./input";
 import { BOARD_WIDTH, BOARD_HEIGHT, MAX_CARDS, CARD_SIZE } from "./constants";
 
 type GameState = {
@@ -111,6 +112,10 @@ function Game() {
     }
   };
 
+  const onInputChangeCb = (url: string) => {
+    setGame(url);
+  };
+
   return succes ? (
     <SuccesImage
       src={
@@ -119,6 +124,7 @@ function Game() {
     />
   ) : (
     <GameContainer>
+      <Input onInputChangeCb={onInputChangeCb} />
       <GameList onGameClickCb={onGameClickCb} />
       <StyledBoard>{renderCards(gameState, onCardClickCb, game)}</StyledBoard>
     </GameContainer>

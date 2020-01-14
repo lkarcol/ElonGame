@@ -29,8 +29,9 @@ const GameIcon = styled.img`
 function GamesList<Props>({ onGameClickCb }) {
   return (
     <StyledGameList>
-      {gameIcons.map(game => (
+      {gameIcons.map((game, key) => (
         <GameIcon
+          key={key}
           src={game}
           width={150}
           height={150}
